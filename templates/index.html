@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block form %}
+<form method="post" action=".">
+	<label>Number of levels*: </label>
+	<input type="text" name="levels">
+	{% if error_1 %}
+	<span style="color: red">{{ error_1 }}</span><br>
+	{% endif %}
+	<input class="btn primary" type="submit" value="Submit »">
+</form>
+{% endblock %}

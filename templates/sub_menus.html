@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block menus %}
+{% if errors %}
+<div class="alert-message warning fade in">
+  <a class="close" href="#">×</a>
+  <p> {{ errors }} </p>
+</div>{% endif %}
+<form method="post" action="/menu">
+	{% for i in levels %}
+	<span>Level {{ i }}</span><br>
+	
+	
+	<span>Number of Actions in level {{ i }}:</span>
+	<input type="text" name="actions-{{ i }}"><br><hr>
+	
+	{% endfor %}
+	
+	<input class="btn primary" type="submit" value="Submit »">
+</form>
+{% endblock %}

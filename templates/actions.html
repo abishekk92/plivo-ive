@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block actions %}
+<div id="my-modal" class="modal hide fade" style="display: block;">
+            <div class="modal-header">
+              <a href="#" class="close">×</a>
+              <h3>IVR Actions</h3>
+            </div>
+            <div class="modal-body">
+            
+              <input type="text" name="ivr-action" id="message"><br>
+              <div id="check-box" class="well">
+              <input type="checkbox" name="action-1" value="1">Press 1
+              <input type="checkbox" name="action-2" value="2">Press 2
+              <input type="checkbox" name="action-3" value="3">Press 3<br>
+              <input type="checkbox" name="action-4" value="4">Press 4
+              <input type="checkbox" name="action-5" value="5">Press 5
+              <input type="checkbox" name="action-6" value="6">Press 6<br>
+              <input type="checkbox" name="action-7" value="7">Press 7
+              <input type="checkbox" name="action-8" value="8">Press 8
+              <input type="checkbox" name="action-9" value="9">Press 9<br>
+              <input type="checkbox" name="action-1" value="0">Press 0<br>              
+           	  </div>
+           	  <input type="submit" class="btn primary" id="submit-actions">
+            </div>
+
+</div>
+<button data-controls-modal="my-modal" data-backdrop="true" data-keyboard="true" class="btn danger" value="0">Add Actions</button>
+{% endblock %}
+{% block ajax %}
+<script type="text/javascript">
+	var level = "0";
+	var buttonClicked = '';
+	var count = 0;
+	var dict_1 = {message:"", val:{}};
+	var dict_2 = {message:"", val:{}};
+	$('button').live('click', function(){
+		buttonClicked = $(this).val();
+		dict_2 = dict_1['val'][buttonClicked];
+	});
+	$('#submit-actions').on('click', function(){
+		var $message = $('#message').val();
+		var checkList = new Array();
+		$('input[type="checkbox"]:checked').each(function(){
+			dict_1['val'][$(this).val()] = {};
+			checkList.push($(this).val());
+		});
+		dict_1['message'] = $("#message").val();
+		$('div.span16').append('<hr>');
+		for ( var i in checkList ){
+
+	   			$('div.span16').append('<button data-controls-modal="my-modal" data-backdrop="true" data-keyboard="true" class="btn danger" value="' + checkList[i] + '">Add Actions</button> ');
+	   		};
+		$('#my-modal').modal('hide');
+		$('input[type=checkbox]:checked').each(function(){
+			$(this).prop('checked', false);
+		});
+		console.log(dict_1);
+	});
+</script>
+{% endblock %}
